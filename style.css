@@ -18,7 +18,7 @@ header {
   top: 0;
   left: 0;
   width: 100%;
-  background: rgba(0,0,0,0.85);
+  background: rgba(0, 0, 0, 0.85);
   backdrop-filter: blur(8px);
   text-align: center;
   padding: 12px 0;
@@ -112,35 +112,57 @@ nav ul li a:hover {
   font-size: 1.05em;
 }
 
-/* ----- Galerie ----- */
-.gallery {
+/* ----- Carrousel ----- */
+.collections {
   text-align: center;
   padding: 80px 20px;
 }
 
-.gallery h2 {
+.collections h2 {
   color: #d4af37;
   margin-bottom: 25px;
 }
 
-.image-gallery {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 15px;
-}
-
-.image-gallery img {
-  width: 300px;
-  border-radius: 10px;
-  transition: transform 0.5s ease, box-shadow 0.5s ease;
-  cursor: pointer;
-}
-
-.image-gallery img:hover {
-  transform: scale(1.05) rotate(1deg);
+.carousel-container {
+  position: relative;
+  width: 90%;
+  max-width: 700px;
+  margin: auto;
+  overflow: hidden;
+  border-radius: 12px;
   box-shadow: 0 0 15px #d4af37;
 }
+
+.carousel {
+  display: flex;
+  transition: transform 0.6s ease-in-out;
+}
+
+.carousel img {
+  width: 100%;
+  border-radius: 12px;
+}
+
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(212, 175, 55, 0.8);
+  color: #000;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 50%;
+  font-size: 18px;
+  transition: 0.3s;
+}
+
+.prev:hover, .next:hover {
+  background: #fff;
+}
+
+.prev { left: 10px; }
+.next { right: 10px; }
 
 /* ----- Contact ----- */
 .contact {
