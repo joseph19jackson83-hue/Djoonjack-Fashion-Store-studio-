@@ -1,30 +1,65 @@
-// Défilement fluide
-function scrollToSection(id) {
-  document.getElementById(id).scrollIntoView({ behavior: "smooth" });
+// MENU
+const menuBtn = document.getElementById('menu-btn');
+const menuList = document.getElementById('menu-list');
+menuBtn.addEventListener('click', () => {
+  menuList.classList.toggle('hidden');
+});
+
+// GALLERY IMAGES
+const images = [
+  'https://raw.githubusercontent.com/joseph19jackson83-hue/Djoonjack-Fashion-Store-studio-/main/images/femme1.jpg',
+  'https://raw.githubusercontent.com/joseph19jackson83-hue/Djoonjack-Fashion-Store-studio-/main/images/femme2.jpg',
+  'https://raw.githubusercontent.com/joseph19jackson83-hue/Djoonjack-Fashion-Store-studio-/main/images/femme3.jpg',
+  'https://raw.githubusercontent.com/joseph19jackson83-hue/Djoonjack-Fashion-Store-studio-/main/images/homme1.jpg',
+  'https://raw.githubusercontent.com/joseph19jackson83-hue/Djoonjack-Fashion-Store-studio-/main/images/homme2.jpg',
+  'https://raw.githubusercontent.com/joseph19jackson83-hue/Djoonjack-Fashion-Store-studio-/main/images/sandales%201.jpg'
+];
+
+const container = document.getElementById('images-container');
+images.forEach(src => {
+  const img = document.createElement('img');
+  img.src = src;
+  img.addEventListener('click', () => openModal(src));
+  container.appendChild(img);
+});
+
+// CAROUSEL CONTROL
+document.getElementById('prev').addEventListener('click', () => {
+  container.scrollBy({ left: -200, behavior: 'smooth' });
+});
+document.getElementById('next').addEventListener('click', () => {
+  container.scrollBy({ left: 200, behavior: 'smooth' });
+});
+
+// MODAL IMAGE
+const modal = document.getElementById('modal');
+const modalImg = document.getElementById('modal-img');
+let rotation = 0;
+
+function openModal(src) {
+  modalImg.src = src;
+  modal.classList.remove('hidden');
+  rotation = 0;
 }
 
-// Carrousel automatique
-let index = 0;
-const slides = document.querySelectorAll(".carousel img");
-const total = slides.length;
+document.getElementById('close-btn').addEventListener('click', () => {
+  modal.classList.add('hidden');
+});
 
-function showSlide(i) {
-  const carousel = document.querySelector(".carousel");
-  carousel.style.transform = `translateX(-${i * 100}%)`;
+document.getElementById('rotate-btn').addEventListener('click', () => {
+  rotation = (rotation + 90) % 360;
+  modalImg.style.transform = `rotate(${rotation}deg)`;
+});
+
+// FADE-IN SCROLL EFFECT
+const fadeElements = document.querySelectorAll('.fade');
+function showOnScroll() {
+  fadeElements.forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 100) {
+      el.classList.add('visible');
+    }
+  });
 }
-
-function nextSlide() {
-  index = (index + 1) % total;
-  showSlide(index);
-}
-
-function prevSlide() {
-  index = (index - 1 + total) % total;
-  showSlide(index);
-}
-
-document.querySelector(".next").addEventListener("click", nextSlide);
-document.querySelector(".prev").addEventListener("click", prevSlide);
-
-// Changement automatique toutes les 4 secondes
-setInterval(nextSlide, 4000);
+window.addEventListener('scroll', showOnScroll);
+showOnScroll(); // Initial check
